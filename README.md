@@ -3,7 +3,7 @@
 Configuration file `.config` should not be committed to github and contains:
 
     email=youremail
-    password=yourmd5hash
+    password=yoursha1hash
 
 # Results
 
