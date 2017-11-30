@@ -5,6 +5,12 @@ Configuration file `.config` should not be committed to github and contains:
     email=youremail
     password=yoursha1hash
 
+Perhaps, redundant info, but this is how you get your sha1 hash:
+
+    echo -n "password" | sha1sum
+
+Type a space before this command if you don't want it to end up in your shell history.
+
 # Results
 
 Result in output/curl.log
