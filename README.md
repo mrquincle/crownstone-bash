@@ -25,3 +25,24 @@ Examples:
 	< output/curl.log underscore select .id
 	< output/curl.log underscore select .id,.address
 	< output/curl.log underscore select .timestamp
+
+# Examples
+
+## Delete a Crownstone
+
+Suppose you would like to remove a Crownstone from the database.
+
+    ./get_stones.sh
+    < output/curl.log underscore select .id,.name
+
+
+This might result in the following array with for example:
+
+    [
+        "Crowny",
+        "5a8f38cc9fe44d00178ee35b"
+    ]
+
+Finally, delete the stone:
+
+    ./delete_stone.sh 5a8f38cc9fe44d00178ee35b
