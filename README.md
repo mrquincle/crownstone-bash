@@ -1,3 +1,13 @@
+# Set of shell tools for Crownstone cloud
+
+Tested in zsh shell.
+
+# Dependencies
+
+Install `jq` parser, for example:
+
+    npm install -g jq2
+
 # Use
 
 Configuration file `.config` should not be committed to github and contains:
@@ -15,15 +25,20 @@ Type a space before this command if you don't want it to end up in your shell hi
 
 Result in output/curl.log
 
-Feed through json.tool to pretty print: 
+Feed through `jq` or `python -m json.tool` to pretty print. Former also accepts international characters (richer UTF encodings).
 
-	< output/curl.log python -m json.tool
+	< output/curl.log jq
 
-Use e.g. https://github.com/ddopson/underscore-cli to parse at command line
+You can use `jq` also to parse the json:
+
+	cat output/curl.log | jq -r '.[].id' 
+	cat output/curl.log | jq -r '.[] | .id,.ownerId' 
+
+You can also use `underscore` https://github.com/ddopson/underscore-cli to parse.
 Examples: 
 
 	< output/curl.log underscore select .id
-	< output/curl.log underscore select .id,.address
+	< output/curl.log underscore select .id,.ownerId
 	< output/curl.log underscore select .timestamp
 
 # Examples
