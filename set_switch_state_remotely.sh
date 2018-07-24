@@ -4,6 +4,8 @@ stone_id=${1:? "Usage: $0 stone_id"}
 
 source login.sh
 
+echo 'Remember to configure your phone as a hub!'
+
 endpoint=Stones/$stone_id
 
 options="-s"
