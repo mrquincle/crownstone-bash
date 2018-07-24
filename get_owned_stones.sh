@@ -14,4 +14,4 @@ curl $options -X GET "https://cloud.crownstone.rocks/api/$endpoint/ownedStones?a
 
 echo "Result in output/curl.log"
 
-< output/curl.log jq
+< output/curl.log jq '.'

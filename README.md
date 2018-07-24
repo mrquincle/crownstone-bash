@@ -41,6 +41,7 @@ Examples:
 	< output/curl.log underscore select .id,.ownerId
 	< output/curl.log underscore select .timestamp
 
+
 # Examples
 
 ## Delete a Crownstone
@@ -61,3 +62,12 @@ This might result in the following array with for example:
 Finally, delete the stone:
 
     ./delete_stone.sh 5a8f38cc9fe44d00178ee35b
+
+## Get information about a stone
+
+Get all stones in a particular sphere and retrieve information about a particular `MAC address` (capitalized).
+
+    ./get_owned_stones.sh SPHERE_ID
+    < output/curl.log jq '.[] | select(.address == "F3:4F:C7:AB:27:37")'
+
+
