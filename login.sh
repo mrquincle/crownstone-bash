@@ -9,8 +9,7 @@ fi
 
 source $cfgfile
 
-if [ ! -n "${token}" ]; then
-
+function getAccessToken() {
   if [ ! -n "${email}" ]; then
     echo "No email field found in configuration file."
     exit
@@ -26,12 +25,24 @@ if [ ! -n "${token}" ]; then
   user_id=$(echo $result | jq -r '.userId')
   echo "Obtained user id: $user_id"
   echo "Obtained access token: $access_token"
+}
+
+if [ ! -n "${token}" ]; then
+  getAccessToken
 else
   access_token=$token
   echo "Using existing access token: $access_token"
 
   result=$(curl -X GET --silent --header "Accept: application/json" "https://cloud.crownstone.rocks/api/users/me?access_token=$access_token")
-  user_id=$(echo $result | jq -r '.id')
-  echo "Obtained user id: $user_id"
+  refresh=$(echo $result | grep -i '\<authorization required\>')
+  if [ -n "${refresh}" ]; then
+    echo "Unauthorized. Refresh access token (write to file)."
+    getAccessToken
+    echo "Write this access token to file and try again!"
+    exit
+  else
+    user_id=$(echo $result | jq -r '.id')
+    echo "Obtained user id: $user_id"
+  fi
 fi
 
