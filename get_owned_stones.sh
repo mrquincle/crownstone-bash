@@ -4,13 +4,13 @@ sphere_id=${1:? "Usage: $0 sphere_id"}
 
 source login.sh
 
-endpoint=Spheres/$sphere_id
+endpoint=Spheres/$sphere_id/ownedStones
 
 options="-s"
 
 mkdir -p output
 
-curl $options -X GET "https://cloud.crownstone.rocks/api/$endpoint/ownedStones?access_token=$access_token" > output/curl.log
+curl $options -X GET "https://cloud.crownstone.rocks/api/$endpoint?access_token=$access_token" > output/curl.log
 
 echo "Result in output/curl.log"
 

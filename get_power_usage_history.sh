@@ -11,5 +11,5 @@ args="from=$date_0&to=$date_1&limit=1000&ascending=true"
 
 mkdir -p output
 
-curl -s -X GET --header "Accept: application/json" "https://cloud.crownstone.rocks/api/$endpoint?$args&access_token=$access_token" 
+curl -s -X GET --header "Accept: application/json" "https://cloud.crownstone.rocks/api/$endpoint?$args&access_token=$access_token"  > output/curl.log
 

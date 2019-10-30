@@ -2,4 +2,12 @@
 
 source login.sh
 
-curl -X GET --header "Content-Type: application/json" --header "Accept: application/json" "https://cloud.crownstone.rocks/api/users/$user_id/keys?access_token=$access_token"
+endpoint=users/$user_id/keys
+
+mkdir -p output
+
+curl -s -X GET "https://cloud.crownstone.rocks/api/$endpoint?access_token=$access_token" > output/curl.log
+
+echo "Result in output/curl.log"
+
+< output/curl.log jq
