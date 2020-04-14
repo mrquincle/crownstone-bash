@@ -1,10 +1,19 @@
 #!/bin/bash
 
-trials=1000
+usage="$0 <number of trials> <simulator: knn|naivebayes>"
+
+trials=${1:? "Usage: $usage"}
+
+simulator=${2:? "Usage: $usage"}
 
 ofile=trials.txt
 
+mkdir -p tmp
+
 rm -f $ofile
+	
+echo "We will run the following $trials times"
+echo ~/workspace/nearest-neighbour/${simulator} training.txt testing.txt sim_out_labels.txt 
 
 for i in $(seq 1 $trials); do
 
@@ -18,8 +27,8 @@ for i in $(seq 1 $trials); do
 	cat tmp/shuffle.txt | head -n $test > testing.txt
 	cat tmp/shuffle.txt | tac | head -n -$test | tac > training.txt
 
-	#~/workspace/nearest-neighbour/nn training.txt testing.txt sim_out_labels.txt | tail -n1 | cut -f2 -d':' | tee -a $ofile
-	~/workspace/nearest-neighbour/nn training.txt testing.txt sim_out_labels.txt | tail -n1 | cut -f2 -d':' >>  $ofile
+	~/workspace/nearest-neighbour/${simulator} training.txt testing.txt sim_out_labels.txt > tmp/last_run
+	cat tmp/last_run | tail -n1 | cut -f2 -d':' >>  $ofile
 
 done
 

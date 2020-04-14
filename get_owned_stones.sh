@@ -12,6 +12,6 @@ mkdir -p output
 
 curl $options -X GET "https://cloud.crownstone.rocks/api/$endpoint?access_token=$access_token" > output/curl.log
 
-echo "Result in output/curl.log"
+#echo "Result in output/curl.log"
 
 < output/curl.log jq '.'

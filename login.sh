@@ -31,7 +31,7 @@ if [ ! -n "${token}" ]; then
   getAccessToken
 else
   access_token=$token
-  echo "Using existing access token: $access_token"
+  #echo "Using existing access token: $access_token"
 
   result=$(curl -X GET --silent --header "Accept: application/json" "https://cloud.crownstone.rocks/api/users/me?access_token=$access_token")
   refresh=$(echo $result | grep -i '\<authorization required\>')
@@ -42,7 +42,7 @@ else
     exit
   else
     user_id=$(echo $result | jq -r '.id')
-    echo "Obtained user id: $user_id"
+    #echo "Obtained user id: $user_id"
   fi
 fi
 

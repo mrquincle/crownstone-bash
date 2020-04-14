@@ -8,9 +8,8 @@ device=msm8954
 
 # Set up temporary directories
 mkdir -p tmp
-rm -rf tmp/fingerprints
 rm -f tmp/stones
-mkdir -p tmp/fingerprints
+rm -f tm/fingerprints_phone
 mkdir -p tmp/fingerprints_phone
 
 # Limit fingerprints to a particular phone

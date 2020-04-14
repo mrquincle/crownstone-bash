@@ -10,4 +10,4 @@ curl -s -X GET "https://cloud.crownstone.rocks/api/$endpoint?access_token=$acces
 
 echo "Result in output/curl.log"
 
-< output/curl.log jq
+< output/curl.log jq '.'
