@@ -6,8 +6,8 @@ endpoint=users/$user_id/devices
 
 mkdir -p output
 
-curl -s -X GET "https://cloud.crownstone.rocks/api/$endpoint?access_token=$access_token" > output/curl.log
+curl -s "$server/api/$endpoint" -H "$auth_header" > output/curl.log
 
-echo "Result in output/curl.log"
+#echo "Result in output/curl.log"
 
 < output/curl.log jq

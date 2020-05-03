@@ -11,7 +11,7 @@ options="-s"
 mkdir -p output
 
 echo "First get all rooms in this sphere"
-curl $options -X GET "https://cloud.crownstone.rocks/api/$endpoint?access_token=$access_token" > output/curl.log
+curl $options "$server/api/$endpoint" -H "$auth_header" > output/curl.log
 
 #echo "Result in output/curl.log"
 
@@ -24,5 +24,5 @@ while read room_id; do
 	echo "Get fingerprints from room $room_id"
 	endpoint=Locations/$room_id/fingerprints
 	ofile=output/fingerprints/$room_id.fingerprints.txt
-	curl $options -X GET "https://cloud.crownstone.rocks/api/$endpoint?access_token=$access_token" > $ofile
+	curl $options "$server/api/$endpoint" -H "$auth_header" > $ofile
 done < output/room_ids
