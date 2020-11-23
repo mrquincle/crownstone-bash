@@ -9,6 +9,8 @@ fi
 
 source $cfgfile
 
+options="-s"
+
 function getAccessToken() {
 	if [ ! -n "${email}" ]; then
 		echo "No email field found in configuration file."
@@ -22,7 +24,7 @@ function getAccessToken() {
 	content_header="Content-Type: application/json"
 	accept_header="Accept: application/json"
 
-	result=$(curl -X POST --silent ${server}/users/login -H "$content_header" -H "$accept_header" -d "{\"email\": \"${email}\", \"password\": \"${password}\"}")
+	result=$(curl -X POST $options ${server}/users/login -H "$content_header" -H "$accept_header" -d "{\"email\": \"${email}\", \"password\": \"${password}\"}")
 	access_token=$(echo $result | jq -r '.token')
 	echo "Obtained access token: $access_token"
 }
@@ -34,7 +36,7 @@ else
 	auth_header="Authorization: Bearer $access_token"
 	accept_header="Accept: application/json"
 
-	result=$(curl -X GET ${server}/users/me --silent -H "$auth_header" -H "$accept_header")
+	result=$(curl -X GET ${server}/users/me $options -H "$auth_header" -H "$accept_header")
 	refresh=$(echo $result | grep -i 'unauthorizederror')
 	if [ -n "${refresh}" ]; then
 		echo "Unauthorized. Refresh access token (write to file)."

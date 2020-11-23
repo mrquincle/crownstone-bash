@@ -12,6 +12,11 @@ source $cfgfile
 accept_header="Accept: application/json"
 content_type_header="Content-Type: application/json"
 
+# Is used by all scripts anyway, just do it here
+options="-s"
+mkdir -p output
+rm -f output/curl.log
+
 function updateAccessToken() {
 	#echo "Update access token: $access_token"
 	sed -i -E "s/^(token[[:blank:]]*=[[:blank:]]*).*/\1$access_token/" $cfgfile
@@ -37,7 +42,7 @@ function getAccessToken() {
 		eval $_result="'$ret_code'"
 		exit
 	fi
-	response=$(curl -X POST -s -H "$content_type_header" -H "$accept_header" -d "{\"email\": \"${email}\", \"password\": \"${password}\"}" "$server/api/users/login")
+	response=$(curl -X POST $options -H "$content_type_header" -H "$accept_header" -d "{\"email\": \"${email}\", \"password\": \"${password}\"}" "$server/api/users/login")
 
 	access_token=$(echo $response | jq -r '.id')
 	auth_header="Authorization: $access_token"
@@ -51,7 +56,7 @@ function getAccessToken() {
 
 function accessTokenCheck() {
 	local _result=$1
-	response=$(curl -X GET -s -H "$accept_header" -H "$auth_header" "$server/api/users/me")
+	response=$(curl -X GET $options -H "$accept_header" -H "$auth_header" "$server/api/users/me")
 	refresh=$(echo $response | grep -i '\<authorization required\>')
 	if [ -n "${refresh}" ]; then
 		ret_code=1

@@ -3,19 +3,12 @@
 stone_id=${1:? "Usage: $0 stone_id state [server]"}
 state=${2:? "Usage: $0 stone_id state [server]"}
 
-if [ -n "${3}" ]; then
-  server=$3
-fi
-
 source login.sh
 
-endpoint=Stones/$stone_id
+endpoint=Stones/$stone_id/setSwitchStateRemotely
 
-options="-s"
+args=switchState=$state
 
-if [ ! -n "${server}" ]; then
-  server="https://cloud.crownstone.rocks"
-fi
+curl $options -X PUT "$server/api/$endpoint" -H "$auth_header" > output/curl.log
 
-curl $options -X PUT --header "Accept: application/json" "$server/api/$endpoint/setSwitchStateRemotely?switchState=$state&access_token=$access_token" 
-
+< output/curl.log jq '.'

@@ -10,7 +10,6 @@ date_1=$(date '+%Y-%m-%d')
 total=14929
 limit=1000
 skip=0
-mkdir -p output
 
 touch output/curl.log
 rm output/curl.log
@@ -18,13 +17,13 @@ rm output/curl.log
 counter=0
 let max=$total+$limit
 until [ $counter -gt $max ]; do
-  echo $skip
-  args="from=$date_0&to=$date_1&limit=$limit&skip=$skip&ascending=true"
+	echo $skip
+	args="from=$date_0&to=$date_1&limit=$limit&skip=$skip&ascending=true"
 
-  curl -s -X GET --header "Accept: application/json" "https://cloud.crownstone.rocks/api/$endpoint?$args&access_token=$access_token" >> output/curl.log
-  
-  let counter+=$limit
-  skip=$counter
+	curl $options "$server/api/$endpoint?$args" -H "$auth_header" >> output/curl.log
+
+	let counter+=$limit
+	skip=$counter
 done
 
-echo "Result in output/curl.log"
+cat output/curl.log

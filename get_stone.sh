@@ -6,10 +6,6 @@ source login.sh
 
 endpoint=Stones/$stone_id
 
-mkdir -p output
-
-curl -s -X GET --header "Accept: application/json" "https://cloud.crownstone.rocks/api/$endpoint?access_token=$access_token" > output/curl.log
-
-echo "Result in output/curl.log"
+curl $options "$server/api/$endpoint" -H "$auth_header" > output/curl.log
 
 < output/curl.log jq

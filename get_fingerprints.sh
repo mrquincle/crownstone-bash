@@ -6,14 +6,8 @@ source login.sh
 
 endpoint=Spheres/$sphere_id/ownedLocations
 
-options="-s"
-
-mkdir -p output
-
 echo "First get all rooms in this sphere"
 curl $options "$server/api/$endpoint" -H "$auth_header" > output/curl.log
-
-#echo "Result in output/curl.log"
 
 < output/curl.log jq -r '.[].id' > output/room_ids
 

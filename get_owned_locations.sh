@@ -6,12 +6,6 @@ source login.sh
 
 endpoint=Spheres/$sphere_id/ownedLocations
 
-options="-s"
-
-mkdir -p output
-
-curl $options -X GET "https://cloud.crownstone.rocks/api/$endpoint?access_token=$access_token" > output/curl.log
-
-#echo "Result in output/curl.log"
+curl $options "$server/api/$endpoint" -H "$auth_header" > output/curl.log
 
 < output/curl.log jq '.'
