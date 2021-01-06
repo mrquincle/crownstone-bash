@@ -7,8 +7,8 @@ source login.sh
 
 endpoint=Stones/$stone_id/setSwitchStateRemotely
 
-args=switchState=$state
+args="switchState=$state"
 
-curl $options -X PUT "$server/api/$endpoint" -H "$auth_header" > output/curl.log
+curl $options $headers -X PUT "$server/api/$endpoint?$args" -H "$auth_header" > output/curl.log
 
 < output/curl.log jq '.'
