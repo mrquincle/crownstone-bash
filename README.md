@@ -21,6 +21,14 @@ Perhaps, redundant info, but this is how you get your sha1 hash:
 
 Type a space before this command if you don't want it to end up in your shell history.
 
+Then log in by:
+
+    ./login.sh
+    
+Afterwards you can run commands like:
+
+    ./set_switch_state_remotely.sh $stoneid 1.0
+
 # Results
 
 Result in output/curl.log
