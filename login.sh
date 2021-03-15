@@ -13,6 +13,7 @@ accept_header="Accept: application/json"
 content_type_header="Content-Type: application/json"
 
 # Is used by all scripts anyway, just do it here
+headers="-H $accept_header -H $content_type_header"
 options="-s"
 mkdir -p output
 rm -f output/curl.log
