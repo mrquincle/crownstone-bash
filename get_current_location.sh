@@ -1,13 +1,16 @@
 #!/bin/bash
 
+source login.sh
+
 user_id=${1:? "Usage: $0 user_id"}
 
-source login.sh
+tmpfile0=$(mktemp /tmp/crownstone-get-current-location.XXXXXX)
 
 endpoint=users/$user_id/currentLocation
 
-curl $options "$server/api/$endpoint" -H "$auth_header" > output/curl.log
+curl $options "$server/api/$endpoint" -H "$auth_header" > $tmpfile0
 
-echo "Result in output/curl.log"
+echo "Result in $tmpfile0"
 
-< output/curl.log jq '.'
+< $tmpfile0 jq '.'
+
