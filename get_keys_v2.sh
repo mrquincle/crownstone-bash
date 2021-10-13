@@ -4,13 +4,16 @@ sphereId=$1
 
 source login.sh
 
+tmpfile0=$(mktemp /tmp/crownstone-get-keys-v2.XXXXXX)
+tmpfile1=$(mktemp /tmp/crownstone-get-keys-v2-sphere.XXXXXX)
+
 endpoint=users/$user_id/keysV2
 
-curl $options "$server/api/$endpoint" -H "$auth_header" > output/curl.log
+curl $options "$server/api/$endpoint" -H "$auth_header" > $tmpfile0
 
-#echo "Result in output/curl.log"
 if [ ! -n "${sphereId}" ]; then
-	< output/curl.log jq '.'
+	< $tmpfile0 jq '.'
 else
-	< output/curl.log jq ".[] | select(.sphereId == \"$sphereId\")"
+	< $tmpfile0 jq ".[] | select(.sphereId == \"$sphereId\")" > $tmpfile1
+	< $tmpfile1 jq '.'
 fi
