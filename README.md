@@ -14,6 +14,7 @@ Configuration file `.config` should not be committed to github and contains:
 
     email=youremail
     password=yoursha1hash
+    server=https://cloud.crownstone.rocks
 
 Perhaps, redundant info, but this is how you get your sha1 hash:
 
@@ -24,7 +25,7 @@ Type a space before this command if you don't want it to end up in your shell hi
 Then log in by:
 
     ./login.sh
-    
+
 Afterwards you can run commands like:
 
     ./set_switch_state_remotely.sh $stoneid 1.0
