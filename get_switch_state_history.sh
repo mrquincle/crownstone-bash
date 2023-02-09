@@ -4,7 +4,7 @@ stone_id=${1:? "Usage: $0 stone_id"}
 
 source login.sh
 
-endpoint=Stones/$stone_id/switchStateHistory
+endpoint=Stones/$stone_id/switchStateHistoryV2
 
 args='ascending=true'
 

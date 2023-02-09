@@ -10,17 +10,25 @@ Install `jq` parser, for example:
 
 # Use
 
-Configuration file `.config` should not be committed to github and contains:
+Configuration file `.config` should not be committed to github and contains something like this:
 
     email=youremail
     password=yoursha1hash
     server=https://cloud.crownstone.rocks
+    event_server=https://events.crownstone.rocks
 
 Perhaps, redundant info, but this is how you get your sha1 hash:
 
     echo -n "password" | sha1sum
 
 Type a space before this command if you don't want it to end up in your shell history.
+
+Alternatively, if you have configured your local hub, you can have something like this in your .config file in which `$hub` is the name of the hub, e.g. `raspberrypi`:
+
+    email=youremail
+    password=yoursha1hash
+    server=http://$hub.local:3000
+    event_server=http://$hub.local:8000
 
 Then log in by:
 
